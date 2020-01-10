@@ -1,0 +1,29 @@
+{
+  "description": "Browser extension for local go-links, a bookmarks replacement",
+  "manifest_version": 2,
+  "name": "Splice",
+  "version": "1.0",
+  "homepage_url": "https://github.com/srhickma/splice",
+  "icons": {
+    "256": "icons/main-dark.png"
+  },
+  "background": {
+    "scripts": [
+      "splice.js"
+    ]
+  },
+  "permissions": [
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>"
+  ],
+  "browser_action": {
+    "default_icon": "icons/main-dark.png",
+    "theme_icons": [{
+        "light": "icons/main-light.png",
+        "dark": "icons/main-dark.png",
+        "size": 256
+    }],
+    "default_title": "Splice"
+  }
+}
