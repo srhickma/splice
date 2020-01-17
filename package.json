@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "sign": "export $(grep -v '^#' ~/web-ext-keys | xargs -d '\n') && web-ext sign",
+        "build": "web-ext build -o"
+    }
+}
