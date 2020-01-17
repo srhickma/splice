@@ -1,5 +1,14 @@
+const splice_matcher = /^[a-z]*:\/\/s\+\/(.*)$/;
+const traversal_matcher = /^[a-z]*:\/\/s\/(.*)$/;
+
+var slices = {};
+
 function splice(requestDetails) {
-    // TODO save mapping.
+    browser.tabs.query({active: true, currentWindow: true})
+        .then(tabs => {
+            const key = splice_matcher.exec(requestDetails.url)[1];
+            slices[key] = tabs[0].url;
+        });
 
     return {
         cancel: true
@@ -7,21 +16,21 @@ function splice(requestDetails) {
 }
 
 function traverse(requestDetails) {
-    // TODO lookup mapping.
+    const key = traversal_matcher.exec(requestDetails.url)[1];
 
     return {
-        redirectUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        redirectUrl: slices[key]
     };
 }
 
 browser.webRequest.onBeforeRequest.addListener(
     splice,
-    {urls:["*://s+/*"]},
+    {urls: ["*://s+/*"]},
     ["blocking"]
 );
 
 browser.webRequest.onBeforeRequest.addListener(
     traverse,
-    {urls:["*://s/*"]},
+    {urls: ["*://s/*"]},
     ["blocking"]
 );
